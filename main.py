@@ -67,6 +67,11 @@ def get_args_parser():
         default=None,
         help="Path to the pretrained model. If set, only the mask head will be trained",
     )
+    parser.add_argument(
+        '--pretrained_coco',
+        default=None,
+        type=str,
+    )
 
     # * Backbone
     parser.add_argument(

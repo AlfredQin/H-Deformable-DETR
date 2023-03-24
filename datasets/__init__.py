@@ -15,6 +15,7 @@ import torch.utils.data
 from .torchvision_datasets import CocoDetection
 
 from .coco import build as build_coco
+from .isaid import build as build_isaid
 
 
 def get_coco_api_from_dataset(dataset):
@@ -35,4 +36,6 @@ def build_dataset(image_set, args, eval_in_training_set=False):
         from .coco_panoptic import build as build_coco_panoptic
 
         return build_coco_panoptic(image_set, args)
+    if args.dataset_file == "isaid":
+        return build_isaid(image_set, args, eval_in_training_set)
     raise ValueError(f"dataset {args.dataset_file} not supported")

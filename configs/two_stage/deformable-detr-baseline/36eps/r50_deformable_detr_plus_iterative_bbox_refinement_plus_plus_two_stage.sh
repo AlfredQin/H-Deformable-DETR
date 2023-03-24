@@ -15,4 +15,10 @@ python -u main.py \
     --k_one2many 0 \
     --epochs 36 \
     --lr_drop 30 \
+    --coco_path '/home/qinc/Dataset/ISAID/iSAID_patches' \
+    --num_workers 12 \
+    --batch_size 2 \
+    --lr 5e-5 \
+    --dataset_file 'isaid' \
+    --pretrained_coco ./ckpt/r50_deformable_detr_plus_iterative_bbox_refinement_plus_plus_two_stage_36eps.pth \
     ${PY_ARGS}

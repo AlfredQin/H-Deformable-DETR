@@ -12,4 +12,10 @@ python -u main.py \
     --k_one2many 0 \
     --epochs 50 \
     --lr_drop 40 \
+    --coco_path '/home/qinc/Dataset/ISAID/iSAID_patches' \
+    --num_workers 12 \
+    --batch_size 2 \
+    --lr 1e-5 \
+    --dataset_file 'isaid' \
+    --resume ${EXP_DIR}/checkpoint0000.pth \
     ${PY_ARGS}
