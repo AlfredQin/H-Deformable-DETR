@@ -22,7 +22,7 @@ import time
 from collections import defaultdict, deque
 import datetime
 import pickle
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 import torch
 import torch.nn as nn
@@ -327,15 +327,24 @@ def nested_tensor_from_tensor_list(tensor_list: List[Tensor]):
         for img, pad_img, m in zip(tensor_list, tensor, mask):
             pad_img[: img.shape[0], : img.shape[1], : img.shape[2]].copy_(img)
             m[: img.shape[1], : img.shape[2]] = False
+        im_shapes = [(img.shape[1], img.shape[2]) for img in tensor_list]
     else:
         raise ValueError("not supported")
-    return NestedTensor(tensor, mask)
+    return NestedTensor(tensor, mask, im_shapes=im_shapes)
 
 
 class NestedTensor(object):
-    def __init__(self, tensors, mask: Optional[Tensor]):
+    def __init__(self, tensors, mask: Optional[Tensor], im_shapes: Optional[List[Tuple[int, int]]] = None):
         self.tensors = tensors
         self.mask = mask
+        self._im_shapes = im_shapes
+
+    @property
+    def im_shapes(self):
+        if self._im_shapes is not None:
+            return self._im_shapes
+        else:
+            return [(m.shape[0], m.shape[1]) for m in self.mask]
 
     def to(self, device, non_blocking=False):
         # type: (Device) -> NestedTensor # noqa
