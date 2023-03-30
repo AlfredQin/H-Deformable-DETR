@@ -18,4 +18,10 @@ python -u main.py \
     --dropout 0.0 \
     --mixed_selection \
     --look_forward_twice \
+    --coco_path '/home/qinc/Dataset/ISAID/iSAID_patches' \
+    --num_workers 12 \
+    --batch_size 2 \
+    --lr 5e-5 \
+    --dataset_file 'isaid' \
+    --pretrained_coco ./ckpt/r50_dp0_mqs_lft_deformable_detr_plus_iterative_bbox_refinement_plus_plus_two_stage_36eps.pth \
     ${PY_ARGS}
